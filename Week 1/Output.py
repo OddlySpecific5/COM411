@@ -4,45 +4,37 @@ import time
 import random
 
 
-gameLoop = True
+gameLoop = True # this is a boolean which helps the while loop to run
 array = [["#","#","#","#","#","#","#","#","#","#"],
         ["#","0"," "," "," "," "," "," ","0","#"],
         ["#"," "," "," "," ","O"," "," "," ","#"],
         ["#","#","#","-","-","-","-","-","#","#"]]
 
-
-
-
-
-class Player:# Player object
+class Player:# Player object ina  class structure
     def __init__(self, playerHealth, playerName, playerPower, playerRegen):
         self.health = playerHealth#
         self.name = playerName
         self.power = playerPower
         self.regen = playerRegen
 
-p1 = Player(100, "Cole", 100, 3)
+p1 = Player(100, "Cole", 100, 3) # The default name is my name
 
-
-
-
-
-class Robot: #Robot object
+class Robot: #Robot object in a class structure
     def __init__(self, health):
         self.health = health
 
-r1 = Robot(100)
+r1 = Robot(100) #r1 is the "name" of the object, for the robot
 
 def draw_robot(array):
    if r1.health >= 50:
        for i in range(0, 4):
            for j in range(1, 2):
                print(array[i])
+   print("Beep Boop!!!")
 
 
-def drawHUD():# draws the players HUD
 
-
+def draw_HUD():# draws the players HUD
     playerArray = [["-", "-", "-", "-", "-", "-"],
                    ["-", "Name: ", "Health:", "Power:", "Regens: ", "-"],
                    ["-", p1.name, p1.health, p1.power, p1.regen, "-"],
@@ -54,14 +46,15 @@ def drawHUD():# draws the players HUD
         print(playerArray[i])
 
     print(1 * "\n")
-    print("Robot health: ", r1.health)
+    print("Robot health: ", r1.health) # shows the robot's health
 
-def attackRobot():#this method is the one that is used to attack the robot
-    randomNumber = random.randrange(1,25)
+def attack_Robot():#this method is the one that is used to attack the robot
+    randomNumber = random.randrange(1,25)# In theory I don't even need to keep reprogramming this BUT
+    #I need different RNG simply because they serve different purposes
     r1.health = r1.health - randomNumber
 
-def RobotReturnAttack():#this allows the robot to attack after the player. the robot CAN do 0 damage :):
-    randomNumber = random.randrange(1, 25)
+def Robot_ReturnAttack():#this allows the robot to attack after the player. the robot CAN do 0 damage :):
+    randomNumber = random.randrange(0, 10)
     if randomNumber == 0:
         print("The Robot has missed!!!")
     else:
@@ -69,8 +62,8 @@ def RobotReturnAttack():#this allows the robot to attack after the player. the r
         p1.health = p1.health - randomNumber
 
 
-def playerRegen():# If the player types "Regen", it will regen the players health from an amount between 1 and 20:
-    if p1.regen > 0:
+def player_Regen():# If the player types "Regen", it will regen the players health from an amount between the minimum and the maximum:
+    if p1.regen > 0 and p1.health < 100:
         p1.regen = p1.regen - 1
         randomNumber = random.randrange(1, 10)
         p1.health = p1.health + randomNumber
@@ -78,23 +71,22 @@ def playerRegen():# If the player types "Regen", it will regen the players healt
     else:
         print(" you have 0 regens left!! ")
 
-def game_overChecker():
+def game_overChecker(): # constantly checks if the player has reached 0health
     if p1.health <= 0:
         print(100*"\n")
         print("Game over.... you died")
         time.sleep(5)
-        main_gameLoop()
+        main_gameLoop() # if so, the game will restart
 
 
-def variable_reset():
+def variable_reset():# as per title, it resets the var[iables] when the game reset
     p1.health = 100
     p1.power = 100
-
     r1.health = 100
 
-def main_gameLoop():
+def main_gameLoop():## maingame loop
     answer1 = input("Are you ready?: ")
-    if answer1 == "y":
+    if answer1 == "y" or answer1 == "yes" or  answer1 == "Yes" or answer1 == "YES":
         Username = input("Please enter your name : " )
         p1.name = Username
         variable_reset()  # resets the variables
@@ -102,18 +94,19 @@ def main_gameLoop():
         draw_robot(array)
         time.sleep(.5)
         while gameLoop == True:
-            drawHUD()
+            draw_HUD()
             game_overChecker()
             playerChoice = input("What is your next move? Attack|Regen| : ")
-            if playerChoice == "Attack":
-                attackRobot()
-                RobotReturnAttack()
-            if playerChoice == "Regen" and p1.health != 100:
-                playerRegen()
+            if playerChoice == "Attack" or  playerChoice == "A" or playerChoice == "a":
+                attack_Robot()
+                Robot_ReturnAttack()
+            if playerChoice == "Regen" or  playerChoice == "R" or playerChoice == "r":
+                player_Regen()
+            else:
+                print()
+
     else:
         sys.exit()
-
-
 
 
 
