@@ -46,7 +46,7 @@ def draw_robot(array, array2):
            for j in range(1, 2):
                print(array2[i])
 
-def drawHUD():
+def drawHUD():# draws the players HUD
         print(p1.name)
         print("Hearts: ",  p1.health)
         print("Powerlevel: ","\n", p1.power, "%")
@@ -57,18 +57,18 @@ def attackRobot():#this method is the one that is used to attack the robot
     randomNumber = random.randrange(1,10)
     r1.health = r1.health - randomNumber
 
-def RobotReturnAttack():
+def RobotReturnAttack():#this allows the robot to attack after the player. the robot CAN do 0 damage :):
     print("\n" * 100)
     print("The robot has gone on the attack!!! ...... ")
     time.sleep(2)
-    randomNumber = random.randrange(1, 10)
+    randomNumber = random.randrange(0, 10)
     p1.health = p1.health - randomNumber
 
     if randomNumber == 0:
         print("The Robot has missed!!!")
 
 
-def playerRegen():
+def playerRegen():# If the player types "Regen", it will regen the players health from an amount between 1 and 20:
     randomNumber = random.randrange(1, 10)
     p1.health = p1.health + randomNumber
     print("The Player has gained ", randomNumber,"Amount of health!!!")
