@@ -16,13 +16,13 @@ array = [["#","#","#","#","#","#","#","#","#","#"],
 
 
 
-array2 = [["#","#","#","#","#","#","#","#","#","#"],
+array2 = [["#","#","#","#","#","#","#","#","#","#"], # this happens when the player knocks the robot's health to below 50%
         ["#","X"," "," "," "," "," "," ","O","#"],
         ["#"," "," "," "," "," "," "," "," ","#"],
         ["#","#","#","-","-","-","-","-","#","#"]]
 
 
-class Player:
+class Player:# Player object
     def __init__(self, playerHealth, playerName, playerPower):
         self.health = playerHealth#
         self.name = playerName
@@ -30,7 +30,7 @@ class Player:
 
 p1 = Player(100, "Cole", 100)
 
-class Robot:
+class Robot: #Robot object
     def __init__(self, health):
         self.health = health
 
