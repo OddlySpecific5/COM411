@@ -1,7 +1,7 @@
 import sys
 import time
 import random
-
+from doctest import debug
 
 gameLoop = True # this is a boolean which helps the while loop to run
 array = [["#","#","#","#","#","#","#","#","#","#"],
@@ -32,12 +32,16 @@ def draw_robot(array):
    print("Beep Boop!!!")# Beep boop
 
 
+
+
+
 def end_message():
     text = "You will never defeat me.."
     for i in range(0, len(text)):
         print(text[i], end =" ")
-        time.sleep(float(.2))
-        print("\n")
+        time.sleep(float(.3))
+
+    print("\n")
 
 def draw_HUD():# draws the players HUD
     print("--------------------------")
@@ -51,35 +55,53 @@ def draw_HUD():# draws the players HUD
     print(1 * "\n")
 
 def power_usage():
-    randomNumber = random.randrange(1, 13)
-    p1.power = p1.power - randomNumber
+    if p1.power > 0:
+        randomNumber = random.randrange(1, 13)
+        if randomNumber > p1.power:
+            difference = randomNumber - p1.number
+            p1.power = difference
+
+        p1.power = p1.power - randomNumber
+    elif p1.power < 0:
+        p1.power = 0
+        print("You have no more power!!!")
+
+
+
 
 def attack_Robot():#this method is the one that is used to attack the robot
-    if p1.power > 75:
+    if p1.power >= 75:
         randomNumber = random.randrange(1,20)  # In theory I don't even need to keep reprogramming this BUT
         # I need different RNG simply because they serve different purposes
-        r1.health = r1.health - randomNumber  # basic calc to get the difference
+        r1.health = r1.health - randomNumber# basic calc to get the difference
+        print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
+        time.sleep(1)
         time.sleep(1)
 
-    elif p1.power < 75:
+    elif p1.power < 75 and p1.power >= 50:
         randomNumber = random.randrange(1,15)
         r1.health = r1.health - randomNumber
+        print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
-    elif p1.power < 50:
+    elif p1.power < 50 and p1.power >= 25:
         randomNumber = random.randrange(1, 12)
         r1.health = r1.health - randomNumber
+        print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
-    elif p1.power < 25:
+    elif p1.power < 25 and p1.power >= 5:
         randomNumber = random.randrange(1, 10)
         r1.health = r1.health - randomNumber
+        print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
-    elif p1.power < 5:
+    elif p1.power < 5 and p1.power > 0:
         randomNumber = random.randrange(0, 5)
+        print("Enter 5")
         r1.health = r1.health - randomNumber
+        print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
 
@@ -119,16 +141,14 @@ def game_overChecker(): # constantly checks if the player has reached 0health
         print("You win!!!")
         end_message()
         time.sleep(5)
-        main_gameLoop()  # if so, the game will restart
-
-
+        main_gameLoop()
 
 def variable_reset():# as per title, it resets the var[iables] when the game reset
     p1.health = 100
     p1.power = 100
     r1.health = 100
 
-def main_gameLoop():## maingame loop
+def main_gameLoop():#maimloop
     answer1 = input("Are you ready?: ")
     if answer1 == "y" or answer1 == "yes" or  answer1 == "Yes" or answer1 == "YES":
 
