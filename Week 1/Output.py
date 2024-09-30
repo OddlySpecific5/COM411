@@ -29,18 +29,21 @@ p1 = Player(100, " ", 100, 3) # The default name is my name
 
 p1healthTemp = p1.health
 p1powerTemp = p1.power
+p1regenTemp = p1.regen
+
 class Robot: #Robot object in a class structure
     def __init__(self, health):
         self.health = health
 
 
-r1 = Robot(1) #r1 is the "name" of the object, for the robot
+r1 = Robot(100) #r1 is the "name" of the object, for the robot
 r1healthTemp = r1.health
 
 
 def variable_reset():# as per title, it resets the var[iables] when the game reset
     p1.health = p1healthTemp
     p1.power = p1powerTemp
+    p1.regen = p1regenTemp
     r1.health = r1healthTemp
 
 
