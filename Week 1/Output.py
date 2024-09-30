@@ -12,6 +12,17 @@ pygame.mixer.init()
 
 defeat_sound = pygame.mixer.Sound("Explosion.wav")
 
+background_music = pygame.mixer.Sound("BackgroundMusic.mp3")
+background_music.set_volume(.2)
+
+hitEffect_music = pygame.mixer.Sound("hitHurt.wav")
+
+powerup_sfx = pygame.mixer.Sound("powerUp.wav")
+powerup_sfx.set_volume(.5)
+
+laser_sfx = pygame.mixer.Sound("laserShoot.wav")
+laser_sfx.set_volume(.5)
+
 gameLoop = True # this is a boolean which helps the while loop to run
 array = [["#","#","#","#","#","#","#","#","#","#"],
         ["#","0"," "," "," "," "," "," ","0","#"],
@@ -76,29 +87,57 @@ def end_message2():# typewrites a message
 
     print("\n")
 
+
+def title_screen():# typewrites a message
+    text = '''⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+          ██████╗  ██████╗ ██████╗  ██████╗ ████████╗    ██╗  ██╗██╗██╗     ██╗     ███████╗██████╗ 
+          ██╔══██╗██╔═══██╗██╔══██╗██╔═══██╗╚══██╔══╝    ██║ ██╔╝██║██║     ██║     ██╔════╝██╔══██╗
+          ██████╔╝██║   ██║██║  ██║██║   ██║   ██║       █████╔╝ ██║██║     ██║     █████╗  ██████╔╝
+          ██╔═══╝ ██║   ██║██║  ██║██║   ██║   ██║       ██╔═██╗ ██║██║     ██║     ██╔══╝  ██╔══██╗
+          ██║     ╚██████╔╝██████╔╝╚██████╔╝   ██║       ██║  ██╗██║███████╗███████╗███████╗██║  ██║
+          ╚═╝      ╚═════╝ ╚═════╝  ╚═════╝    ╚═╝       ╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
+
+        '''
+
+    for i in range(0, len(text)):
+        print(text[i], end ="")
+        time.sleep(float(.015))
+
+    print("\n")
+
+
 def draw_HUD():# draws the players HUD
     print("--------------------------")
     print("Stats: ")
-    print("Player Name: ", p1.name)
-    print("Player Health: ", p1.health,"%")
-    print("Player Power: ", p1.power,"%")
-    print("Player Regen: ", p1.regen)
-    print("Robot health: ", r1.health,"%") # shows the robot's health
+    print(f"Player Name:   {p1.name}")
+    print(f"Player Health: {p1.health}", "%")
+    print(f"Player Power:  {p1.power}","%")
+    print(f"Player Regen:  {p1.regen}")
+    print(f"Robot health:  {r1.health}","%") # shows the robot's health
     print("--------------------------")
     print(1 * "\n")
 
 def power_usage():
-    if p1.power > 0:# if the power is not smaller than 0, it generates a number
+    if p1.power > 0:
         randomNumber = random.randrange(1, 13)
-        if randomNumber > p1.power: # if the num gened is bigger than power .i.e 10 : 5- power, then it
-            difference = randomNumber - p1.power #it finds the difference i.e   5 and the subs it from the p1.power
-            p1.power = difference - p1.power
-        p1.power = p1.power - randomNumber
-    elif p1.power <= 0:# if power is equal to 0 then it is set to 0 and a statement is declared
+        if p1.power - randomNumber < 0:
+            # Set power to 0 if the result of subtraction is negative
+            p1.power = 0
+            print(f"{p1.name} used all their remaining power. Power is now 0%.")
+        else:
+            # Subtract the random number from the player's power
+            p1.power -= randomNumber
+            print(f"{p1.name} used {randomNumber} power. Remaining power: {p1.power}%.")
+            print("\n")
+    elif p1.power <= 0:
+        # Power is already 0, notify the player
         p1.power = 0
         print("You have no more power!!!")
 
 def attack_Robot():#this method is the one that is used to attack the robot
+    play_sound_effect(hitEffect_music)
     if p1.power >= 75:
         randomNumber = random.randrange(1,20)  # In theory, I don't even need to keep reprogramming this BUT
         # I need different RNG simply because they serve different purposes
@@ -124,9 +163,8 @@ def attack_Robot():#this method is the one that is used to attack the robot
         print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
-    elif p1.power < 5 and p1.power > 0:
+    elif p1.power < 5 and p1.power >= 0:
         randomNumber = random.randrange(0, 5)
-        print("Enter 5")
         r1.health = r1.health - randomNumber
         print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
@@ -139,22 +177,25 @@ def Robot_ReturnAttack():#this allows the robot to attack after the player. the 
         print("The Robot has missed!!!")
     else:# if that number is not 0 then it runs this block of code
         print("\n","The robot has gone on the attack!!! ...... ")
+        play_sound_effect(laser_sfx)
         p1.health = p1.health - randomNumber
         time.sleep(.5)
         print("\n")
-        print("The robot has done...", randomNumber, " damage..")
+        print(f"The robot has done... {randomNumber} damage..")
         time.sleep(2)
         print("\n")
 
 
 def player_Regen():# If the player types "Regen", it will regen the players health from an amount between the minimum and the maximum:
-    if p1.regen > 0 and p1.health < 100:
+    if p1.regen > 0 and p1.health <= 100:
         p1.regen = p1.regen - 1
         randomNumber = random.randrange(1, 10)
+        play_sound_effect(powerup_sfx)
         p1.health = p1.health + randomNumber
-        print("The Player has gained ", randomNumber, "Amount of health!!!")
+        print(f"The Player has gained {randomNumber} Amount of health!!!")
     else:
-        print(" you have 0 regens left!! ")
+        print("You cannot regen!!!")
+
 
 def game_overChecker(): # constantly checks if the player has reached 0health
     if p1.health <= 0:
@@ -162,6 +203,7 @@ def game_overChecker(): # constantly checks if the player has reached 0health
         print("Game over.... you died")
         time.sleep(5)
         variable_reset()  # if the player wins or dies and wants to try again then it resets the variables
+        background_music.stop()
         main_gameLoop() # if so, the game will restart
     elif r1.health <= 0:
         play_sound_effect(defeat_sound)
@@ -172,6 +214,7 @@ def game_overChecker(): # constantly checks if the player has reached 0health
 
         time.sleep(5)
         variable_reset()  # if the player wins or dies and wants to try again then it resets the variables
+        background_music.stop()
         main_gameLoop()
 
 
@@ -179,18 +222,9 @@ def game_overChecker(): # constantly checks if the player has reached 0health
 def main_gameLoop():#maimloop
     answer1 = input("Are you ready?: ")
     if answer1 == "y" or answer1 == "yes" or  answer1 == "Yes" or answer1 == "YES":
+        background_music.play(-1)
+        title_screen()
 
-        print('''⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-
-          ██████╗  ██████╗ ██████╗  ██████╗ ████████╗    ██╗  ██╗██╗██╗     ██╗     ███████╗██████╗ 
-          ██╔══██╗██╔═══██╗██╔══██╗██╔═══██╗╚══██╔══╝    ██║ ██╔╝██║██║     ██║     ██╔════╝██╔══██╗
-          ██████╔╝██║   ██║██║  ██║██║   ██║   ██║       █████╔╝ ██║██║     ██║     █████╗  ██████╔╝
-          ██╔═══╝ ██║   ██║██║  ██║██║   ██║   ██║       ██╔═██╗ ██║██║     ██║     ██╔══╝  ██╔══██╗
-          ██║     ╚██████╔╝██████╔╝╚██████╔╝   ██║       ██║  ██╗██║███████╗███████╗███████╗██║  ██║
-          ╚═╝      ╚═════╝ ╚═════╝  ╚═════╝    ╚═╝       ╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
-
-        ''')
 
         p1.name = input("Please enter your name : " )
         time.sleep(.5)
