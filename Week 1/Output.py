@@ -3,6 +3,14 @@ import time
 import random
 from doctest import debug
 from operator import truediv
+import pygame
+import threading
+
+from pygame.examples.music_drop_fade import play_file
+
+pygame.mixer.init()
+
+defeat_sound = pygame.mixer.Sound("Explosion.wav")
 
 gameLoop = True # this is a boolean which helps the while loop to run
 array = [["#","#","#","#","#","#","#","#","#","#"],
@@ -43,6 +51,9 @@ def draw_robot(array):
     print("Beep Boop!!!")# Beep boop
 
 
+def play_sound_effect(effect):
+    # Play the sound effect in a non-blocking way
+    effect.play()
 
 def end_message():# typewrites a message
     text = input("What do you want to say to the robot?: ")
@@ -66,10 +77,10 @@ def draw_HUD():# draws the players HUD
     print("--------------------------")
     print("Stats: ")
     print("Player Name: ", p1.name)
-    print("Player Health: ", p1.health)
-    print("Player Power: ", p1.power)
+    print("Player Health: ", p1.health,"%")
+    print("Player Power: ", p1.power,"%")
     print("Player Regen: ", p1.regen)
-    print("Robot health: ", r1.health) # shows the robot's health
+    print("Robot health: ", r1.health,"%") # shows the robot's health
     print("--------------------------")
     print(1 * "\n")
 
@@ -84,9 +95,6 @@ def power_usage():
         p1.power = 0
         print("You have no more power!!!")
 
-
-
-
 def attack_Robot():#this method is the one that is used to attack the robot
     if p1.power >= 75:
         randomNumber = random.randrange(1,20)  # In theory, I don't even need to keep reprogramming this BUT
@@ -95,8 +103,6 @@ def attack_Robot():#this method is the one that is used to attack the robot
         print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
-
-
     elif p1.power < 75 and p1.power >= 50:
         randomNumber = random.randrange(1,15)
         r1.health = r1.health - randomNumber
@@ -155,10 +161,12 @@ def game_overChecker(): # constantly checks if the player has reached 0health
         variable_reset()  # if the player wins or dies and wants to try again then it resets the variables
         main_gameLoop() # if so, the game will restart
     elif r1.health <= 0:
+        play_sound_effect(defeat_sound)
         print(100 * "\n")
         print("You win!!!")
         end_message()
         end_message2()
+
         time.sleep(5)
         variable_reset()  # if the player wins or dies and wants to try again then it resets the variables
         main_gameLoop()
@@ -168,6 +176,19 @@ def game_overChecker(): # constantly checks if the player has reached 0health
 def main_gameLoop():#maimloop
     answer1 = input("Are you ready?: ")
     if answer1 == "y" or answer1 == "yes" or  answer1 == "Yes" or answer1 == "YES":
+
+        print('''⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+          ██████╗  ██████╗ ██████╗  ██████╗ ████████╗    ██╗  ██╗██╗██╗     ██╗     ███████╗██████╗ 
+          ██╔══██╗██╔═══██╗██╔══██╗██╔═══██╗╚══██╔══╝    ██║ ██╔╝██║██║     ██║     ██╔════╝██╔══██╗
+          ██████╔╝██║   ██║██║  ██║██║   ██║   ██║       █████╔╝ ██║██║     ██║     █████╗  ██████╔╝
+          ██╔═══╝ ██║   ██║██║  ██║██║   ██║   ██║       ██╔═██╗ ██║██║     ██║     ██╔══╝  ██╔══██╗
+          ██║     ╚██████╔╝██████╔╝╚██████╔╝   ██║       ██║  ██╗██║███████╗███████╗███████╗██║  ██║
+          ╚═╝      ╚═════╝ ╚═════╝  ╚═════╝    ╚═╝       ╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
+
+        ''')
+
         p1.name = input("Please enter your name : " )
         time.sleep(.5)
         draw_robot(array)
