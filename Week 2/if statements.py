@@ -14,7 +14,7 @@ map = [["#","#","#","#","#","#","#","#","#","#"          ],
 
 playerPosY = 1
 playerPosX = 1
-previousItem = ' '
+
 
 
 def program1():
@@ -55,80 +55,84 @@ def drawMap(map):
 
 
 
-def Up_movement(map, playerPosY, playerPosX, player,previousItem):
+def Up_movement(map, playerPosY, playerPosX, player):
     previousItem = map[playerPosY - 1][playerPosX]
     map[playerPosY - 1][playerPosX] = player
-    print(previousItem, "up")
     map[playerPosY][playerPosX] = ' '
+    return previousItem
 
-
-def Down_movement(map, playerPosY, playerPosX, player, previousItem):
+def Down_movement(map, playerPosY, playerPosX, player):
     previousItem = map[playerPosY + 1][playerPosX]
     map[playerPosY + 1][playerPosX] = player
-    print(previousItem, "down")
     map[playerPosY][playerPosX] = ' '
+    return previousItem
 
 
-
-def Left_movement(map, playerPosY, playerPosX, player, previousItem):
+def Left_movement(map, playerPosY, playerPosX, player):
     previousItem = map[playerPosY][playerPosX - 1]
     map[playerPosY][playerPosX - 1] = player
-    print(previousItem, "left")
     map[playerPosY][playerPosX] = ' '
+    return previousItem
 
-
-def Right_movement(map, playerPosY, playerPosX, player, previousItem):
+def Right_movement(map, playerPosY, playerPosX, player):
     previousItem = map[playerPosY][playerPosX + 1]
     map[playerPosY][playerPosX + 1] = player
-    print(previousItem, "right")
-    map[playerPosY][playerPosX] = ' '
+    map[playerPosY][playerPosX] = previousItem
+    return previousItem
 
 
 
 
 
-def program3(map, playerPosY, playerPosX, player, previousItem):
+
+def program3(map, playerPosY, playerPosX, player):
     while gameBool:
-
-        if previousItem == '♥':
-            print("You got it !!!!")
-            break
+        drawMap(map)
+        moveChoice = input("What way should the robot move? : Up | Down | Left| Right:  ").lower()
+        if moveChoice == "up" or moveChoice == '^' and playerPosY != 1:
+            prevItem = Up_movement(map, playerPosY, playerPosX, player)
+            if prevItem == '♥':
+                break
+            print(f"Going {moveChoice.capitalize()} !!!! ")
+            print()
+            playerPosY -= 1
+        elif moveChoice == "down" or moveChoice == 'v' and playerPosY != 6:
+            prevItem = Down_movement(map, playerPosY, playerPosX, player)
+            if prevItem == '♥':
+                break
+            print(f"Going {moveChoice.capitalize()} !!!! ")
+            print()
+            playerPosY += 1
+        elif moveChoice == "left" or moveChoice == '<' and playerPosX != 1:
+            prevItem = Left_movement(map, playerPosY, playerPosX, player)
+            if prevItem == '♥':
+                break
+            print(f"Going {moveChoice.capitalize()} !!!! ")
+            print()
+            playerPosX -= 1
+        elif moveChoice == "right" or moveChoice == '>' and playerPosX != 8:
+            prevItem = Right_movement(map, playerPosY, playerPosX, player)
+            if prevItem == '♥':
+                break
+            playerPosX += 1
+            print(f"Going {moveChoice.capitalize()} !!!! ")
+            print()
         else:
-            drawMap(map)
-            moveChoice = input("What way should the robot move? : Up | Down | Left| Right:  ").lower()
-            if moveChoice == "up" or moveChoice == '^' and playerPosY != 1:
-                print(f"Going {moveChoice.capitalize()} !!!! ")
-                print()
-                Up_movement(map, playerPosY, playerPosX, player, previousItem)
-                playerPosY -= 1
-            elif moveChoice == "down" or moveChoice == 'v'  and playerPosY != 6:
-                print(f"Going {moveChoice.capitalize()} !!!! ")
-                print()
-                Down_movement(map, playerPosY, playerPosX, player, previousItem)
-                playerPosY += 1
-                if previousItem == '♥':
-                    return previousItem
-            elif moveChoice == "left" or moveChoice == '<'  and playerPosX != 1:
-                print(f"Going {moveChoice.capitalize()} !!!! ")
-                print()
-                Left_movement(map, playerPosY, playerPosX, player, previousItem)
-                playerPosX -= 1
-                if previousItem == '♥':
-                    return previousItem
+            print("Invalid move" + "\n")
 
-            elif moveChoice == "right" or moveChoice == '>' and playerPosX != 8:
-                print(f"Going {moveChoice.capitalize()} !!!! ")
-                print()
-                Right_movement(map, playerPosY, playerPosX, player, previousItem)
-                playerPosX += 1
-            else:
-                print("Invalid move"+ "\n")
+
+
+
+
+    else:
+        print("Loop broken")
 
 
 
 
 
 
-program3(map, playerPosY, playerPosX, player, previousItem)
+
+program3(map, playerPosY, playerPosX, player)
 
 
