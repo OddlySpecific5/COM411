@@ -210,7 +210,6 @@ def game_overChecker(): # constantly checks if the player has reached 0health
         print("You win!!!")
         end_message()
         end_message2()
-
         time.sleep(5)
         variable_reset()  # if the player wins or dies and wants to try again then it resets the variables
         background_music.stop()
