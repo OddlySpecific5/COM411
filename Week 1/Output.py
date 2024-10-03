@@ -219,12 +219,10 @@ def game_overChecker(): # constantly checks if the player has reached 0health
 
 
 def main_gameLoop():#maimloop
-    answer1 = input("Are you ready?: ")
-    if answer1 == "y" or answer1 == "yes" or  answer1 == "Yes" or answer1 == "YES":
+    answer1 = input("Are you ready?: ").lower()
+    if answer1 == "y" or answer1 == "yes":
         background_music.play(-1)
         title_screen()
-
-
         p1.name = input("Please enter your name : " )
         time.sleep(.5)
         draw_robot(array)
@@ -232,12 +230,12 @@ def main_gameLoop():#maimloop
         while gameLoop == True:
             draw_HUD()
             game_overChecker()
-            playerChoice = input("What is your next move? Attack|Regen| : ")
-            if playerChoice == "Attack" or  playerChoice == "A" or playerChoice == "a":
+            playerChoice = input("What is your next move? Attack|Regen| : ").lower()
+            if playerChoice == "attack" or  playerChoice == "a":
                 power_usage()
                 attack_Robot()
                 Robot_ReturnAttack()
-            if playerChoice == "Regen" or  playerChoice == "R" or playerChoice == "r":
+            if playerChoice == "regen" or  playerChoice == "r":
                 player_Regen()
             else:
                 print()
