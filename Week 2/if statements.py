@@ -1,7 +1,7 @@
 import time
 
 player = "x"
-
+gameBool = True
 
 map = [["#","#","#","#","#","#","#","#","#","#"          ],
         ["#",player," "," "," "," "," "," "," ","#"      ],
@@ -54,33 +54,41 @@ def drawMap(map):
               print(map[i])
 
 
-def Up_movement(map, playerPosY, playerPosX, player):
+
+def Up_movement(map, playerPosY, playerPosX, player,previousItem):
+    previousItem = map[playerPosY - 1][playerPosX]
     map[playerPosY - 1][playerPosX] = player
+    print(previousItem, "up")
     map[playerPosY][playerPosX] = ' '
 
 
-def Down_movement(map, playerPosY, playerPosX, player):
+def Down_movement(map, playerPosY, playerPosX, player, previousItem):
+    previousItem = map[playerPosY + 1][playerPosX]
     map[playerPosY + 1][playerPosX] = player
+    print(previousItem, "down")
     map[playerPosY][playerPosX] = ' '
 
 
 
-
-
-def Left_movement(map, playerPosY, playerPosX, player):
+def Left_movement(map, playerPosY, playerPosX, player, previousItem):
+    previousItem = map[playerPosY][playerPosX - 1]
     map[playerPosY][playerPosX - 1] = player
+    print(previousItem, "left")
     map[playerPosY][playerPosX] = ' '
 
 
-
-def Right_movement(map, playerPosY, playerPosX, player):
+def Right_movement(map, playerPosY, playerPosX, player, previousItem):
+    previousItem = map[playerPosY][playerPosX + 1]
     map[playerPosY][playerPosX + 1] = player
+    print(previousItem, "right")
     map[playerPosY][playerPosX] = ' '
 
 
 
-def program3(map, playerPosY, playerPosX, player):
-    while True:
+
+
+def program3(map, playerPosY, playerPosX, player, previousItem):
+    while gameBool:
 
         if previousItem == '♥':
             print("You got it !!!!")
@@ -91,22 +99,27 @@ def program3(map, playerPosY, playerPosX, player):
             if moveChoice == "up" or moveChoice == '^' and playerPosY != 1:
                 print(f"Going {moveChoice.capitalize()} !!!! ")
                 print()
-                Up_movement(map, playerPosY, playerPosX, player)
+                Up_movement(map, playerPosY, playerPosX, player, previousItem)
                 playerPosY -= 1
             elif moveChoice == "down" or moveChoice == 'v'  and playerPosY != 6:
                 print(f"Going {moveChoice.capitalize()} !!!! ")
                 print()
-                Down_movement(map, playerPosY, playerPosX, player)
+                Down_movement(map, playerPosY, playerPosX, player, previousItem)
                 playerPosY += 1
+                if previousItem == '♥':
+                    return previousItem
             elif moveChoice == "left" or moveChoice == '<'  and playerPosX != 1:
                 print(f"Going {moveChoice.capitalize()} !!!! ")
                 print()
-                Left_movement(map, playerPosY, playerPosX, player)
+                Left_movement(map, playerPosY, playerPosX, player, previousItem)
                 playerPosX -= 1
+                if previousItem == '♥':
+                    return previousItem
+
             elif moveChoice == "right" or moveChoice == '>' and playerPosX != 8:
                 print(f"Going {moveChoice.capitalize()} !!!! ")
                 print()
-                Right_movement(map, playerPosY, playerPosX, player)
+                Right_movement(map, playerPosY, playerPosX, player, previousItem)
                 playerPosX += 1
             else:
                 print("Invalid move"+ "\n")
@@ -116,6 +129,6 @@ def program3(map, playerPosY, playerPosX, player):
 
 
 
-program3(map, playerPosY, playerPosX, player)
+program3(map, playerPosY, playerPosX, player, previousItem)
 
 
