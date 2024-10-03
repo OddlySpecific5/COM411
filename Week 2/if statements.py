@@ -1,5 +1,7 @@
 import time
 import pygame
+from pygame.midi import Input
+
 player = "x"
 gameBool = True
 
@@ -47,11 +49,13 @@ def program2():
             print("doing calculations...")
             time.sleep(.5)
             print("Activity complete!!")
+            break
 
         else:  # if anything BUT calculate is added, it runs this
             print("Performing activity")
             time.sleep(.5)
             print("Activity complete!!")
+            break
 
 def drawMap(map):
     for i in range(0, 8):
@@ -139,6 +143,17 @@ def program3(map, playerPosY, playerPosX, player):
 
 
 
-program3(map, playerPosY, playerPosX, player)
+
+while True:
+    print(100 * "\n")
+    question1 = int(input("What program do you want?: "))
+    if question1 == 1:
+        program1()
+    elif question1 == 2:
+        program2()
+
+    elif question1 == 3:
+        program3(map, playerPosY, playerPosX, player)
+        main_theme.stop()
 
 
