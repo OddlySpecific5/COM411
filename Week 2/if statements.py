@@ -2,22 +2,23 @@ import time
 import pygame
 from pygame.midi import Input
 
-player = "x"
-gameBool = True
 
+player = "@"
+gameBool = True
+wall_text = f"There seems to be a wall,{player}"
 
 pygame.mixer.init()
 
 main_theme = pygame.mixer.Sound("ZeldaMain.wav")
 
-map = [["#","#","#","#","#","#","#","#","#","#"          ],
-        ["#",player," "," "," "," "," "," "," ","#"      ],
-        ["#"," "," "," "," "," "," "," "," ","#"         ],
-        ["#"," "," "," "," "," "," "," "," ","#"         ],
-        ["#", " ", " ", " ", " ", " ", " ", " ", " ", "#"],
-        ["#", " ", " ", " ", " ", " ", " ", " ", " ", "#"],
+map = [[ "#","#","#","#","#","#","#","#","#",         "#"],
+        ["#",player," "," ","X","X"," "," "," ",      "#"],
+        ["#","X","X"," "," ","X"," "," "," ",         "#"],
+        ["#"," ","X","X"," ","X"," "," "," ",         "#"],
+        ["#", " ", " ", "X" , " ", " ", " ", " ", " ", "#"],
+        ["#", " ", " ", "", " ", " ", " ", " ", " ",  "#"],
         ["#", " ", " ", " ", " ", " ", " ", " ", "♥", "#"],
-        ["#","#","#","#","#","#","#","#","#","#"]        ]
+        ["#","#","#","#","#","#","#","#","#",         "#"]]
 
 playerPosY = 1
 playerPosX = 1
@@ -101,36 +102,62 @@ def program3(map, playerPosY, playerPosX, player):
         moveChoice = input("What way should the robot move? : Up | Down | Left| Right:  ").lower()
         if moveChoice == "up" or moveChoice == '^' and playerPosY != 1:
             prevItem = Up_movement(map, playerPosY, playerPosX, player)
-            print(f"Going Up!! ")
-            print()
-            playerPosY -= 1
-            drawMap(map)
-            if prevItem == '♥':
-                break
+            if prevItem == 'X':
+                map[playerPosY - 1][playerPosX] = prevItem
+                map[playerPosY][playerPosX] = player
+                print(wall_text)
+                drawMap(map)
+            else:
+                print(f"Going Up! ")
+                print()
+                playerPosY -= 1
+                drawMap(map)
+                if prevItem == '♥':
+                    break
         elif moveChoice == "down" or moveChoice == 'v' and playerPosY != 6:
             prevItem = Down_movement(map, playerPosY, playerPosX, player)
-            print(f"Going Down!! ")
-            print()
-            playerPosY += 1
-            drawMap(map)
-            if prevItem == '♥':
-                break
+            if prevItem == 'X':
+                map[playerPosY + 1][playerPosX] = prevItem
+                map[playerPosY][playerPosX] = player
+                print(wall_text)
+                drawMap(map)
+            else:
+                print(f"Going Down! ")
+                print()
+                playerPosY += 1
+                drawMap(map)
+                if prevItem == '♥':
+                    break
         elif moveChoice == "left" or moveChoice == '<' and playerPosX != 1:
             prevItem = Left_movement(map, playerPosY, playerPosX, player)
-            print(f"Going Left! ")
-            print()
-            playerPosX -= 1
-            drawMap(map)
-            if prevItem == '♥':
-                break
+            if prevItem == 'X':
+                map[playerPosY][playerPosX - 1] = prevItem
+                map[playerPosY][playerPosX] = player
+                print(wall_text)
+                drawMap(map)
+            else:
+                print(f"Going Left! ")
+                print()
+                playerPosX -= 1
+                drawMap(map)
+                if prevItem == '♥':
+                    break
         elif moveChoice == "right" or moveChoice == '>' and playerPosX != 8:
             prevItem = Right_movement(map, playerPosY, playerPosX, player)
-            playerPosX += 1
-            drawMap(map)
-            if prevItem == '♥':
-                break
-            print(f"Going Right! ")
-            print()
+            if prevItem == 'X':
+                map[playerPosY][playerPosX + 1] = prevItem
+                map[playerPosY][playerPosX] = player
+                print(wall_text)
+                drawMap(map)
+            else:
+                print(f"Going Right! ")
+                print()
+                playerPosX += 1
+                drawMap(map)
+                if prevItem == '♥':
+                    break
+
+
         else:
             print("Invalid move" + "\n")
 
@@ -138,12 +165,7 @@ def program3(map, playerPosY, playerPosX, player):
         print("Loop broken")
 
 
-
-
-
-
-
-
+#Main code
 while True:
     print(100 * "\n")
     question1 = int(input("What program do you want?: "))
