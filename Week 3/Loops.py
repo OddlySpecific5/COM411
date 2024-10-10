@@ -63,6 +63,11 @@ def program_6():
         count += 1
     print(f"Final sum of the numbers {TempVar}")
 
+def program_7():
+
+    userChoice = int(input("How many mountains do you want to see?: "))
+    for i in range (userChoice):
+        print(" *Mountain* ")
 
 while True:#mainloop
     print(2 * "\n")
@@ -81,4 +86,6 @@ while True:#mainloop
         program_6()
     elif question1 == 7:
         program_7()
+    else:
+        print("You funny git!!")
 
