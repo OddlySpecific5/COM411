@@ -1,9 +1,9 @@
 import time
 import pygame
-from pygame.midi import Input
 
 
-player = "@"
+
+player = "$"
 gameBool = True
 wall_text = f"There seems to be a wall,{player}"
 
@@ -37,6 +37,7 @@ def program1():
         print(f"Sorry we do not have {bookType.capitalize()} in store today...")# .capitalize  makes the first letter of the variable a capital
     bookName = input("What is the name of your book? :  ")  # asks the user for the name of their book
     print(f"I love {bookName} ! That one is my favourite")  # prints out the name of their book
+    time.sleep(.8) # waits for X amount of seconds
 
 
 
