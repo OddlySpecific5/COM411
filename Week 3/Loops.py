@@ -1,5 +1,8 @@
 import time
-from array import array
+
+
+from pygame.midi import Input
+
 
 def program_1():
     appleNum = int(input("How many apples do you want: "))
@@ -23,16 +26,16 @@ def program_2():
 
 def program_3():
     robotCharge = int(input("How much do you want to charge the robot's battery by?:  "))
-    batteryCount = 0
-    array = ["Charge: "]
-    while batteryCount <= robotCharge:
-        time.sleep(.2)
-        array.append("█")
-        print(array)
-        batteryCount +=1
+    i = 1
 
-    print( 2*"\n")
-    print(f"The Robots battery is fully charged to {array} !!!!")
+    while i < robotCharge:
+        print(f"Charge: {'█'*i}")
+        i +=1
+
+def program_4():
+    userResponse = input("Please enter a phrase: ")
+    for i in range (0,len(userResponse)):
+       print("Hi", end=" ")
 
 
 
@@ -50,5 +53,8 @@ while True:#mainloop
         program_2()
     elif question1 == 3:
         program_3()
+    elif question1 == 4:
+        program_4()
+
 
 
