@@ -47,7 +47,7 @@ class Robot: #Robot object in a class structure
         self.health = health
 
 
-r1 = Robot(100) #r1 is the "name" of the object, for the robot
+r1 = Robot(1) #r1 is the "name" of the object, for the robot
 r1healthTemp = r1.health
 
 def variable_reset():# as per title, it resets the var[iables] when the game reset

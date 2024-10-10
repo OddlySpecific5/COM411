@@ -1,5 +1,5 @@
 import time
-
+from typing import Counter
 
 from pygame.midi import Input
 
@@ -39,8 +39,16 @@ def program_4():
 
 
 
+def program_5():
+    counter1 = 0
+    counter2 = 1
+    while counter2 <= 100:
+        counter1 = counter1 + counter2
+        counter2 +=1
+        print(f"Sum of 1 to 100: {counter1}")
 
-
+    print("\n")
+    print(f"Total sum is {counter1}")
 
 
 
@@ -55,6 +63,7 @@ while True:#mainloop
         program_3()
     elif question1 == 4:
         program_4()
-
+    elif question1 == 5:
+        program_5()
 
 
