@@ -1,4 +1,5 @@
 import time
+from array import array
 
 def program_1():
     appleNum = int(input("How many apples do you want: "))
@@ -21,6 +22,23 @@ def program_2():
 
 
 def program_3():
+    robotCharge = int(input("How much do you want to charge the robot's battery by?:  "))
+    batteryCount = 0
+    array = ["Charge: "]
+    while batteryCount <= robotCharge:
+        time.sleep(.2)
+        array.append("█")
+        print(array)
+        batteryCount +=1
+
+    print( 2*"\n")
+    print(f"The Robots battery is fully charged to {array} !!!!")
+
+
+
+
+
+
 
 
 while True:#mainloop
