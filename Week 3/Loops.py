@@ -44,12 +44,24 @@ def program_5():
     counter2 = 1
     while counter2 <= 100:
         counter1 = counter1 + counter2
-        counter2 +=1
+        counter2 += 1
+
         print(f"Sum of 1 to 100: {counter1}")
 
     print("\n")
     print(f"Total sum is {counter1}")
 
+
+def program_6():
+    userChoice = int(input("How many numbers should I sum up?: "))
+    count = 1
+    TempVar = 0
+    while count <= userChoice:
+        main_number = int(input(f"Please enter a number {count} out of {userChoice}: "))
+        TempVar = TempVar + main_number
+
+        count += 1
+    print(f"Final sum of the numbers {TempVar}")
 
 
 while True:#mainloop
@@ -65,5 +77,8 @@ while True:#mainloop
         program_4()
     elif question1 == 5:
         program_5()
-
+    elif question1 == 6:
+        program_6()
+    elif question1 == 7:
+        program_7()
 
