@@ -52,6 +52,15 @@ def escape_by(method):
         print(f"{method} :That is not an option!!")
 
 
+def cross_bridgefunc(steps):
+    for i in range(1, steps + 1):
+        print(f"Crossed step")
+    if i > 5:
+        print("The bridge is falling down!!!!")
+    else:
+        print("We must keep going!!!")
+
+
 
 while True:
     print("\n")
@@ -65,3 +74,6 @@ while True:
         escape_by("running around")
         escape_by("cross bridge ahead")
         escape_by("jumping till we fly!!!")
+    elif userChoice == "cross":
+        cross_bridgefunc(100)
+
