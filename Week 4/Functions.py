@@ -16,6 +16,11 @@ def program2():
         print("Ending Program")
 
 
+def program3():
+    print(f"Program 3 Started!")
+
+
+
 
 while True:  # mainloop
     print(2 * "\n")
