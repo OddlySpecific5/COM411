@@ -144,25 +144,25 @@ def attack_Robot():#this method is the one that is used to attack the robot
         print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
-    elif p1.power < 75 and p1.power >= 50:
+    elif 75 > p1.power >= 50:
         randomNumber = random.randrange(1,15)
         r1.health = r1.health - randomNumber
         print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
-    elif p1.power < 50 and p1.power >= 25:
+    elif 50 > p1.power >= 25:
         randomNumber = random.randrange(1, 12)
         r1.health = r1.health - randomNumber
         print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
-    elif p1.power < 25 and p1.power >= 5:
+    elif 25 > p1.power >= 5:
         randomNumber = random.randrange(1, 10)
         r1.health = r1.health - randomNumber
         print(p1.name, " has done", randomNumber, " damage..")
         print("Ouch...")  # ouch
         time.sleep(1)
-    elif p1.power < 5 and p1.power >= 0:
+    elif 5 > p1.power >= 0:
         randomNumber = random.randrange(0, 5)
         r1.health = r1.health - randomNumber
         print(p1.name, " has done", randomNumber, " damage..")
