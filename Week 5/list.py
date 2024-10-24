@@ -56,7 +56,7 @@ def menu_and_input():
             print()
         else:
             return localTemp[playerChoice]
-            break
+
 
 
 
