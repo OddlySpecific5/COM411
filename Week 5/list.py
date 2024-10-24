@@ -24,6 +24,19 @@ def run_2():
 
 
 
+def menu():
+    tempDirections = directions()
+    for i in range(0, len(tempDirections)):
+        print(f"{i} : {tempDirections[i]}")
+    directionChoice = input("Which direction would you like to move?: " )
+
+
+
+def run_3():
+    menu()
+
+
+
 
 
 if __name__ == "__main__":
@@ -32,4 +45,5 @@ if __name__ == "__main__":
         run_1()
     elif question == "2":
         run_2()
-
+    elif question == "3":
+        run_3()
