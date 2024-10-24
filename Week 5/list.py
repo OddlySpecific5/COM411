@@ -20,7 +20,7 @@ def run_2():
     print("Moving....")
     temp = movements()
     for i in range(0, len(temp) , 2):
-        print(f"Moving {temp[i]} to {temp[i+1]}")
+        print(f"{temp[i]} to {temp[i+1]}")
 
 
 
@@ -29,6 +29,36 @@ def menu():
     for i in range(0, len(tempDirections)):
         print(f"{i} : {tempDirections[i]}")
     directionChoice = input("Which direction would you like to move?: " )
+
+
+
+def run_4():
+    routeList = []
+
+    for i in range(1, 6):
+        routeList.append(menu_and_input())
+
+    for i in range(0, len(routeList)):
+        print(f"Escape route: {i + 1} : {routeList[i]}")
+
+    print("\n" + f"In a list format, here is your escape route:  {routeList}")
+
+
+
+def menu_and_input():
+    localTemp = directions() # displays diirections
+    for i in range(0, len(localTemp)):
+        print(f"{i} : {localTemp[i]}")
+
+    while True:
+        playerChoice = int(input("Which route would you like to move to??: "))
+        if playerChoice >= len(localTemp):
+            print()
+        else:
+            return localTemp[playerChoice]
+            break
+
+
 
 
 
@@ -47,3 +77,5 @@ if __name__ == "__main__":
         run_2()
     elif question == "3":
         run_3()
+    elif question == "4":
+        run_4()
