@@ -38,11 +38,28 @@ def run_task2():
     display_chars(r"C:\Users\0mcmac68\PycharmProjects\COM411\files\library", 10)
 
 
+def search(filePath):
+    with open(filePath) as f:
+        for line in f:
+            print(f"Searching in {line}".strip())
+        print("Done!!!")
+
+def run_task3():
+    filePath = r"C:\Users\0mcmac68\PycharmProjects\COM411\files\library"
+    search(filePath)
+
+
 if __name__ == "__main__":
     question = input("What program do you want? : ")
     if question == "1":
         run()
     elif question == "2":
         run_task2()
+    elif question == "3":
+        book = input("What book do you want?? : ")
+        run_task3()
+    elif question == "4":
+        print()
+
 
 
