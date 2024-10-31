@@ -48,6 +48,22 @@ def run_task3():
     filePath = r"C:\Users\0mcmac68\PycharmProjects\COM411\files\library"
     search(filePath)
 
+def search_books(filePath):
+    print("Searching...")
+    sections = ""
+    books = "Books:\n"
+    with open(filePath) as f:
+        for line in f:
+            if line.startswith("Section"):
+                sections += line
+            else:
+                books += line
+
+    print("Done")
+
+    return f"{sections}\n\n{books}"
+
+
 
 if __name__ == "__main__":
     question = input("What program do you want? : ")
@@ -59,7 +75,7 @@ if __name__ == "__main__":
         book = input("What book do you want?? : ")
         run_task3()
     elif question == "4":
-        print()
+        search_books(r"C:\Users\0mcmac68\PycharmProjects\COM411\files\books")
 
 
 
