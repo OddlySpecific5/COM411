@@ -5,7 +5,7 @@ from pygame.midi import Input
 
 
 def program_1():
-    appleNum = int(input("How many apples do you want: "))
+    appleNum = int(input("How many apples do you want to remove: "))
     count = 1
     while count <= appleNum:
         print(f"Removed {count}  of apples ")
