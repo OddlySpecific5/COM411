@@ -49,6 +49,7 @@ def display_medal_tally(tally):
 
 
 def display_medal_tallyTeam(team_tally):
+    #Had a eureka  moment and made this gem
     countryList = []
     listOfTeams = []
     with open(r"C:\Users\Cole\PycharmProjects\COM411\week7\athlete_events.csv") as OlypTextFile:
@@ -63,15 +64,11 @@ def display_medal_tallyTeam(team_tally):
                 listOfTeams.append(countryDictionary)
 
             else:
-                try:
-                    if medalAwarded == "Gold":
-                        countryDictionary["Medals"]["Gold"] += 1
-                    elif medalAwarded == "Silver":
-                        countryDictionary["Medals"]["Silver"] += 1
-                    elif medalAwarded == "Bronze":
-                        countryDictionary["Medals"]["Bronze"] += 1
-                except:
-                    KeyError("Hey!!")
+                countryDictionary = next(team for team in listOfTeams if team["Country"] == country) # used CHATPGT for this line because i'm fairly shit at dictionaries
+
+            if medalAwarded in countryDictionary["Medals"]:
+                countryDictionary["Medals"][medalAwarded] += 1
+
 
         print(listOfTeams)
 
