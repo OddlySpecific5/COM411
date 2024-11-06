@@ -3,24 +3,45 @@ import csvOlypictest
 
 
 def read_data(file_path):
-    print()
+    print(f"Reading data from {file_path}")
 
 def run(file_path):
-    athlete_data = read_data(file_path)
     with open(file_path) as fp:
-        csvOlypictest.started()
         while True:
+            csvOlypictest.menu()
+            print()
             selection = input("What do you want to select? : ").lower()
             if selection == "years":
-                csvOlypictest.display_years(selection)  # Years won
+                csvOlypictest.started(f"Listing {selection}")
+                read_data(file_path)
+                csvOlypictest.display_years(selection)  #display_years()
+                csvOlypictest.completed()
             elif selection == "tally":
-                csvOlypictest.display_medal_tally(selection)  # Regular Tally
+                csvOlypictest.started(f"Tallying medals")
+                read_data(file_path)
+                csvOlypictest.display_medal_tally(selection) #display_medal_tally()
+                csvOlypictest.completed()
             elif selection == "team":
-                csvOlypictest.display_medal_tallyTeam(selection)  # Team Tally
+                csvOlypictest.started("Tallying medals for each team.")
+                read_data(file_path)
+                csvOlypictest.display_medal_tallyTeam(selection)  #display_medal_tallyTeam()
+                csvOlypictest.completed()
             elif selection == "exit":
+                csvOlypictest.completed()
                 break
             else:
                 csvOlypictest.error(msg="Invalid selection")
+
+
+
+
+
+
+
+
+
+
+
 
 
 
