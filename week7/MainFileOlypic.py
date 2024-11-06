@@ -28,8 +28,11 @@ def run(file_path):
                 csvOlypictest.completed()
             elif selection == "country":
                 countryName = input("What country do you want to search for?: ")
+
                 csvOlypictest.started(f"Tallying the medals for {countryName}")
+
                 csvOlypictest.display_specifc_country(countryName)
+
                 csvOlypictest.completed()
             elif selection == "exit":
                 csvOlypictest.completed()

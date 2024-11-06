@@ -81,8 +81,9 @@ def display_medal_tallyTeam(team_tally):
             print("-------------------------------------------------------------------------------------")
 
 
-def display_specifc_country(countryName): # Added this for fun :)
+def display_specifc_country(countryName):
     countryDictionary = {"Country": countryName, "Medals": {"Gold": 0, "Silver": 0, "Bronze": 0}}
+    countryFound = False
     listOfTeams = []
     with open(r"C:\Users\Cole\PycharmProjects\COM411\week7\athlete_events.csv") as OlypTextFile:
         FileReader = csv.reader(OlypTextFile)
@@ -90,18 +91,22 @@ def display_specifc_country(countryName): # Added this for fun :)
         for line in FileReader:
             country = line[6]
             medalAwarded = line[14]
-            if country == countryName :  # if the country is NOT in the country list
+            if country == countryName:  # if the country is NOT in the country list
+                countryFound = True
                 if medalAwarded in countryDictionary[
                     "Medals"]:  # searchs through the dictionary and increments the medals
                     countryDictionary["Medals"][medalAwarded] += 1
 
-        print("-------------------")
-        print(countryDictionary["Country"])
 
-        print("|Gold     |"f"{countryDictionary["Medals"]["Gold"]}|")
-        print("|Silver   |"f"{countryDictionary["Medals"]["Silver"]}|")
-        print("|Bronze   |"f"{countryDictionary["Medals"]["Bronze"]}|")
-        print("-------------------")
+        if countryFound:
+            print("-------------------")
+            print(countryDictionary["Country"])
+            print("|Gold     |", countryDictionary["Medals"]["Gold"], "|")
+            print("|Silver   |", countryDictionary["Medals"]["Silver"], "|")
+            print("|Bronze   |", countryDictionary["Medals"]["Bronze"], "|")
+            print("-------------------")
+        else:
+            print(f"{countryName}' is not in the database.")
 
 
 
