@@ -50,7 +50,7 @@ def display_medal_tally(tally):
 
 def display_medal_tallyTeam(team_tally):
     #Had a eureka  moment and made this gem
-    countryList = []
+    countryList = []# Dup checker
     listOfTeams = []
     with open(r"C:\Users\Cole\PycharmProjects\COM411\week7\athlete_events.csv") as OlypTextFile:
         FileReader = csv.reader(OlypTextFile)
@@ -59,18 +59,31 @@ def display_medal_tallyTeam(team_tally):
             country = line[6]
             medalAwarded = line[14]
             if country not in countryList:
-                countryList.append(country)
+                countryList.append(country)# adds the respective country to the list
                 countryDictionary = {"Country": country, "Medals":{"Gold": 0, "Silver": 0, "Bronze": 0}}
-                listOfTeams.append(countryDictionary)
+                listOfTeams.append(countryDictionary) # creates and appends
+                # s the country to the list, via dictionary
+
 
             else:
-                countryDictionary = next(team for team in listOfTeams if team["Country"] == country) # used CHATPGT for this line because i'm fairly shit at dictionaries
+                countryDictionary = next(team for team in listOfTeams if team["Country"] == country) # used ChatGPT for this line because I am fairly shit at dictionaries
+
+
 
             if medalAwarded in countryDictionary["Medals"]:
                 countryDictionary["Medals"][medalAwarded] += 1
 
 
-        print(listOfTeams)
+        for countryDictionary in listOfTeams: # Assuming everything is correct, this should print everything out with no issue
+            print("-------------------------------------------------------------------------------------")
+            print(countryDictionary["Country"])
+
+            print("|Gold     |"f"{countryDictionary["Medals"]["Gold"]}|")
+            print("|Silver   |"f"{countryDictionary["Medals"]["Silver"]}|")
+            print("|Bronze   |"f"{countryDictionary["Medals"]["Bronze"]}|")
+            print("-------------------------------------------------------------------------------------")
+
+
 
 
 def display_years(years):
