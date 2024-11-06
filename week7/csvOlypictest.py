@@ -115,10 +115,11 @@ def display_years(years):
     with open(r"C:\Users\Cole\PycharmProjects\COM411\week7\athlete_events.csv") as OlypTextFile:
         FileReader = csv.reader(OlypTextFile)
         print(f"Years: ")
-        listOyears = [" "]
+        listOyears = []
+        print("-------------------")
         for line in FileReader:
             listOyears.append(line[9])# adds every read year to a list
-
-    print(listOyears)# Outputs the list
+            print(line[9])
+            print("-------------------")
     #The purpose / desired outcome WASN'T to add it to a list but I did it  because it would make it easier to manipulate.
     # Attempting to sort via "Sort()" will take too long, this is assuming it runs a basic bubble sort and a much stronger sorting algorithm (Insertion / Quick sort for intergers) will be needed
