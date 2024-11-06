@@ -24,7 +24,8 @@ def menu():
     print("Please select one of the following options: ")
     print(f"[years] List unique years \n" 
          f"[tally] Tally up medals \n"
-         f"[team] Tally up medals for each team \n" #Changed "tally" to "team"
+         f"[teams] Tally up medals for each team \n" #Changed "tally" to "team"
+        f"[country] Search for a specific team \n"
          f"[exit] Exit the program")
 
 
@@ -79,6 +80,28 @@ def display_medal_tallyTeam(team_tally):
             print("|Bronze   |"f"{countryDictionary["Medals"]["Bronze"]}|")
             print("-------------------------------------------------------------------------------------")
 
+
+def display_specifc_country(countryName): # Added this for fun :)
+    countryDictionary = {"Country": countryName, "Medals": {"Gold": 0, "Silver": 0, "Bronze": 0}}
+    listOfTeams = []
+    with open(r"C:\Users\Cole\PycharmProjects\COM411\week7\athlete_events.csv") as OlypTextFile:
+        FileReader = csv.reader(OlypTextFile)
+        next(FileReader)  # Skips the header
+        for line in FileReader:
+            country = line[6]
+            medalAwarded = line[14]
+            if country == countryName :  # if the country is NOT in the country list
+                if medalAwarded in countryDictionary[
+                    "Medals"]:  # searchs through the dictionary and increments the medals
+                    countryDictionary["Medals"][medalAwarded] += 1
+
+        print("-------------------")
+        print(countryDictionary["Country"])
+
+        print("|Gold     |"f"{countryDictionary["Medals"]["Gold"]}|")
+        print("|Silver   |"f"{countryDictionary["Medals"]["Silver"]}|")
+        print("|Bronze   |"f"{countryDictionary["Medals"]["Bronze"]}|")
+        print("-------------------")
 
 
 

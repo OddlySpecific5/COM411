@@ -21,10 +21,15 @@ def run(file_path):
                 read_data(file_path)
                 csvOlypictest.display_medal_tally(selection) #display_medal_tally()
                 csvOlypictest.completed()
-            elif selection == "team":
+            elif selection == "teams":
                 csvOlypictest.started("Tallying medals for each team.")
                 read_data(file_path)
                 csvOlypictest.display_medal_tallyTeam(selection)  #display_medal_tallyTeam()
+                csvOlypictest.completed()
+            elif selection == "country":
+                countryName = input("What country do you want to search for?: ")
+                csvOlypictest.started(f"Tallying the medals for {countryName}")
+                csvOlypictest.display_specifc_country(countryName)
                 csvOlypictest.completed()
             elif selection == "exit":
                 csvOlypictest.completed()
