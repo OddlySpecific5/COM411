@@ -55,4 +55,4 @@ def run(file_path):
 
 
 
-run(r"C:\Users\Cole\PycharmProjects\COM411\week7\athlete_events.csv")
+run(r"athlete_events.csv")
