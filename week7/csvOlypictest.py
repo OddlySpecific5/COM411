@@ -93,8 +93,7 @@ def display_specifc_country(countryName):
             medalAwarded = line[14]
             if country == countryName:  # if the country is NOT in the country list
                 countryFound = True
-                if medalAwarded in countryDictionary[
-                    "Medals"]:  # searchs through the dictionary and increments the medals
+                if medalAwarded in countryDictionary["Medals"]:  # searchs through the dictionary and increments the medals
                     countryDictionary["Medals"][medalAwarded] += 1
 
 
