@@ -53,8 +53,8 @@ def display_medal_tally(tally):
 def display_medal_tallyTeam(team_tally):
     #Had a eureka  moment and made this gem
     countryList = []# Dup checker
-    listOfTeams = []
-    with open(r"C:\Users\Cole\PycharmProjects\COM411\week7\athlete_events.csv") as OlypTextFile:
+    listOfTeams = [] # This was made prior to knowing sets and, I'm too lazy to change it
+    with open(r"athlete_events.csv") as OlypTextFile:
         FileReader = csv.reader(OlypTextFile)
         next(FileReader) #  Skips the header
         for line in FileReader:
@@ -85,7 +85,7 @@ def display_specifc_country(countryName):
     countryDictionary = {"Country": countryName, "Medals": {"Gold": 0, "Silver": 0, "Bronze": 0}}
     countryFound = False
     listOfTeams = []
-    with open(r"C:\Users\Cole\PycharmProjects\COM411\week7\athlete_events.csv") as OlypTextFile:
+    with open(r"athlete_events.csv") as OlypTextFile:
         FileReader = csv.reader(OlypTextFile)
         next(FileReader)  # Skips the header
         for line in FileReader:
@@ -111,7 +111,7 @@ def display_specifc_country(countryName):
 
 def display_years(years):
     print("Years here!!!")
-    with open(r"C:\Users\Cole\PycharmProjects\COM411\week7\athlete_events.csv") as OlypTextFile:
+    with open(r"athlete_events.csv") as OlypTextFile:
         FileReader = csv.reader(OlypTextFile)
         print(f"Years: ")
         listOyears = []
