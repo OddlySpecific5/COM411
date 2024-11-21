@@ -11,6 +11,9 @@ class Human:
     def display_Human_age(self):
         print(f"I am {human.age}")  # prints the age
 
+
+
+
     def display_Human_energy(self):
         print(f"{human.name} has {human.energy}% left")  # prints the energy percentage
 
@@ -37,9 +40,9 @@ class Human:
 
 
 
-
-if (__name__ == "__main__"):
-    human = Human("Human", 0, 100, 100)
-    human.display_Human_name()
-    human.display_Human_energy()
-    human.distance(10)
+human = Human("Human", 0, 100, 100)
+# (__name__ == "__main__"):
+    #human = Human("Human", 0, 100, 100)
+    #human.display_Human_name()
+    #human.display_Human_energy()
+    #human.distance(10)

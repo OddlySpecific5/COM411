@@ -35,8 +35,9 @@ class Robot:
         else:
             print(f"You have {robot.energy}% left!!")
 
-if (__name__ == "__main__"):
-    robot = Robot("Robot", 0, 100, 100)
-    robot.display_Robot_name()
-    robot.display_Human_energy()
-    robot.distance(10)
+robot = Robot("Robot", 0, 100, 100)
+
+#if (__name__ == "__main__"):
+    #robot.display_Robot_name()
+    #robot.display_Human_energy()
+    #robot.distance(10)
