@@ -1,9 +1,12 @@
 class Robot:
-    def __init__(self, RobotName, RobotAge, RobotEnergy, RobotMax_energy):
-        self.name = RobotName
-        self.age = RobotAge
-        self.energy = RobotEnergy
-        self.max_energy = RobotMax_energy
+    def __init__(self):
+        self.name = "Robot"
+        self.age = 0
+        self.energy = 100
+        self.max_energy = 100
+
+    def __repr__(self):
+        return f"{robot.name} / {robot.age}"
 
     def display_Robot_name(self):
         print(f"I am {robot.name}")  # prints the name
@@ -35,9 +38,5 @@ class Robot:
         else:
             print(f"You have {robot.energy}% left!!")
 
-robot = Robot("Robot", 0, 100, 100)
+robot = Robot()
 
-#if (__name__ == "__main__"):
-    #robot.display_Robot_name()
-    #robot.display_Human_energy()
-    #robot.distance(10)
